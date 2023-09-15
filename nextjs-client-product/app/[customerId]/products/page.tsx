@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import { productListFetcher } from '@/lib/fetcher/product-fetcher'
 import { Heading } from '@/components/ui/heading'
@@ -13,7 +13,8 @@ import { ProductDTO } from '@/lib/DTO/product'
 
 const ProductsPage = () => {
   const params = useParams()
-  const { data: productList, error, isLoading } = useSWR(`/api/customer/${params.customerId}/product`, productListFetcher)
+  const router = useRouter()
+  const { data: productList, error, isLoading, mutate } = useSWR(`/api/customer/${params.customerId}/product`, productListFetcher)
   const [productModalOpen, setProductModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<ProductDTO | null>(null)
   if (isLoading) return <div>Loading</div>
@@ -29,6 +30,7 @@ const ProductsPage = () => {
   const closeModal = () => {
     setSelectedProduct(null)
     setProductModalOpen(false)
+    mutate()
   }
   return (
     <div className='flex flex-col p-10'>

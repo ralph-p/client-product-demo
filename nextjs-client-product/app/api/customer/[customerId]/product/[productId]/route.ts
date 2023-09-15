@@ -1,4 +1,5 @@
 import { productList } from "@/lib/constants/products";
+import { supabase } from "@/lib/utils";
 import { NextResponse } from "next/server"
 
 export async function PATCH(
@@ -20,13 +21,9 @@ export async function PATCH(
     if (!name) {
       return new NextResponse("Name is required", { status: 400 });
     }
-    let product = productList.find((product) => product.id === productId)
 
-    if (product?.customerID !== customerId) {
-      return new NextResponse("Unauthorized", { status: 400 });
-    }
-    product = { ...product, name, price }
-    return NextResponse.json(product);
+    const { data } = await supabase.from("products").update({ name, price }).eq('id', productId)
+    return NextResponse.json(data);
   } catch (error) {
     console.log('[CLIENT_PLAN_PATCH]', error);
     return new NextResponse("Internal error", { status: 500 });
@@ -46,14 +43,9 @@ export async function DELETE(
     if (!productId) {
       return new NextResponse("Product ID is required", { status: 400 });
     }
+    const { data: product } = await supabase.from("products").delete().eq("id", productId)
 
-    let product = productList.find((product) => product.id === productId)
-
-    if (product?.customerID !== customerId) {
-      return new NextResponse("Unauthorized", { status: 400 });
-    }
-    productList.filter((product) => product.id !== productId)
-    return NextResponse.json(productList);
+    return NextResponse.json(product);
   } catch (error) {
     console.log('[CLIENT_PLAN_PATCH]', error);
     return new NextResponse("Internal error", { status: 500 });

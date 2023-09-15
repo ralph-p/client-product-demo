@@ -39,9 +39,9 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer }) => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await axios.patch(`/api/customer/${customer.id}`, values).then(({ data }) => {
+    await axios.patch(`/api/customer/${customer.id}`, values).then(() => {
       toast({
-        title: `${data.name} updated`,
+        title: `Customer Data updated`,
       })
     })
   }

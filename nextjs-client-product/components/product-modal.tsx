@@ -68,14 +68,12 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const onSubmit = async (values: ProductModalValues) => {
     // if we have a product we patch
     if (initialProduct) {
-      await axios.patch(`/api/customer/${customerId}/product/${initialProduct.id}`, values)
+      await axios.patch(`/api/customer/${customerId}/product/${initialProduct.id}`, values).then(() => onClose())
     }
     // else we post a new product 
     else {
-      await axios.post(`/api/customer/${customerId}/product/`, values);
-
+      await axios.post(`/api/customer/${customerId}/product/`, values).then(() => onClose());
     }
-    onClose()
   }
   return (
     <Modal

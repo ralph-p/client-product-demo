@@ -16,7 +16,8 @@ export const Navbar = () => {
 
   if (isLoading) return <div>Loading</div>
   if (error) return <div>Error fetching customers</div>
-  const selectedCustomer = customerList?.find((customer) => customer.id === params.customerId)
+  // have to check with `==` to loosely equal the customer id and the params 
+  const selectedCustomer = customerList?.find((customer) => customer.id == params.customerId)
   const routes = [
     {
       href: `/${selectedCustomer?.id}`,

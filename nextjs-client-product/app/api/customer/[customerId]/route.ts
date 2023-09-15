@@ -1,11 +1,12 @@
-
-import { customerList } from "@/lib/constants/customers"
+import { supabase } from "@/lib/utils"
 import { NextResponse } from "next/server"
+
+
 
 export async function GET(req: Request, { params }: { params: { customerId: string } }) {
   try {
     const { customerId } = params
-    const customer = customerList.find((customer) => customer.id === customerId)
+    const { data: customer } = await supabase.from("customers").select("*").eq("id", customerId).limit(1).single()
     if (customer) return NextResponse.json(customer)
     else return new NextResponse("Customer Not Found", { status: 404 })
   } catch (error) {
@@ -30,13 +31,10 @@ export async function PATCH(
     if (!customerId) {
       return new NextResponse("Customer ID is required", { status: 400 });
     }
-    let customer = customerList.find((customer) => customer.id === customerId)
+    let customer = await supabase.from("customers").update({ name, description }).eq('id', customerId)
     if (!customer) {
       return new NextResponse("Customer Not Found", { status: 404 })
     }
-
-    customer = { ...customer, name, description }
-
     return NextResponse.json(customer);
   } catch (error) {
     console.log('[CUSTOMER_PATCH]', error);
