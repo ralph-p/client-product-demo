@@ -6,6 +6,7 @@ import { useParams, useRouter, usePathname } from "next/navigation";
 import useSWR from 'swr'
 import { customerListFetcher } from "@/lib/fetcher/customer-fetcher";
 import { cn } from "@/lib/utils"
+import { Loading } from "./loading";
 
 export const Navbar = () => {
   const params = useParams();
@@ -14,7 +15,7 @@ export const Navbar = () => {
 
   const { data: customerList, error, isLoading } = useSWR('/api/customer', customerListFetcher)
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <Loading />
   if (error) return <div>Error fetching customers</div>
   // have to check with `==` to loosely equal the customer id and the params 
   const selectedCustomer = customerList?.find((customer) => customer.id == params.customerId)

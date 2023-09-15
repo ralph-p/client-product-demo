@@ -22,4 +22,4 @@ Possible Improvements:
 - Add some kind of state control (context, redux, recoil, etc) to store the client/product info in state and make page rendering faster.
 - Add better pagination logic to the products table (currently it's front end only pagination, this can be updated to use the endpoints)
 - Add/Implement auth so the clients/products need a user logged in to interact with
-- Implement SSR for the pages
+- Implement Prefetch/SSR for the pages so it loads faster

@@ -9,6 +9,7 @@ import { DataTable } from '@/components/product-table/data-table'
 import { columns } from '@/components/product-table/columns'
 import { ProductModal } from '@/components/product-modal'
 import { ProductDTO } from '@/lib/DTO/product'
+import { Loading } from '@/components/loading'
 
 
 const ProductsPage = () => {
@@ -16,7 +17,7 @@ const ProductsPage = () => {
   const { data: productList, error, isLoading, mutate } = useSWR(`/api/customer/${params.customerId}/product`, productListFetcher)
   const [productModalOpen, setProductModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<ProductDTO | null>(null)
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <Loading />
   if (!productList || error) return <div>Could not find product List</div>
   const onEditClick = (product: ProductDTO) => {
     setSelectedProduct({ ...product })
