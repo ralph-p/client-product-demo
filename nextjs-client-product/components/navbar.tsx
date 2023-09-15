@@ -39,7 +39,7 @@ export const Navbar = () => {
           selectedCustomer={selectedCustomer}
           onCustomerSelect={(id: string) => router.push(`/${id}`)}
         />
-        <div className="flex flex-col py-5">
+        <div className="flex flex-col py-5 space-y-3">
           {
             routes.map((route) => (
               <Link

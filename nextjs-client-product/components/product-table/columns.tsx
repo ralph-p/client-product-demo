@@ -28,7 +28,17 @@ export const columns: ColumnDef<ProductDTO>[] = [
   },
   {
     accessorKey: "price",
-    header: "Product Price",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Product Price
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
   },
   {
     id: "actions",
