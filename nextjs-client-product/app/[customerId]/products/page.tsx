@@ -5,6 +5,8 @@ import useSWR from 'swr'
 import { productListFetcher } from '@/lib/fetcher/product-fetcher'
 import { Heading } from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
+import { DataTable } from '@/components/product-table/data-table'
+import { columns } from '@/components/product-table/columns'
 
 
 const ProductsPage = () => {
@@ -21,6 +23,7 @@ const ProductsPage = () => {
         <Heading title={`Products (${productList.length})`} />
         <Button>Add Product</Button>
       </div>
+      <DataTable data={productList} columns={columns} />
     </div>
   )
 }
