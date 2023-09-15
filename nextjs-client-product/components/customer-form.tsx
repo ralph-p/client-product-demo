@@ -14,6 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { CustomerDTO } from '@/lib/DTO/customer';
+import { useForm } from "react-hook-form"
+import { Textarea } from "./ui/textarea"
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -21,11 +26,6 @@ const formSchema = z.object({
   }),
   description: z.string().min(0),
 })
-import { CustomerDTO } from '@/lib/DTO/customer';
-import { useForm } from "react-hook-form"
-import { Textarea } from "./ui/textarea"
-import axios from "axios";
-import { useToast } from "@/components/ui/use-toast"
 
 type CustomerFormProps = { customer: CustomerDTO }
 export const CustomerForm: React.FC<CustomerFormProps> = ({ customer }) => {

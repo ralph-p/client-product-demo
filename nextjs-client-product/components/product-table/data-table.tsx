@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
+  Row,
 } from "@tanstack/react-table"
 
 import {
@@ -28,14 +29,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { ProductDTO } from "@/lib/DTO/product"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  editProduct: (product: ProductDTO) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  editProduct,
 }: DataTableProps<TData, TValue>) {
   const [pageIndex, setPageIndex] = useState(0)
   const [sorting, setSorting] = useState<SortingState>([])
@@ -61,6 +65,12 @@ export function DataTable<TData, TValue>({
   }
   const tableNextPage = () => {
     if (table.getCanNextPage()) setPageIndex(pageIndex + 1)
+  }
+  const editProductOnClick = (rowId: string) => {
+    let index = parseInt(rowId)
+    if (data[index]) {
+      editProduct(data[index] as ProductDTO)
+    }
   }
   const startIndex = pageIndex * pageSize + 1;
   const endIndex = Math.min((pageIndex + 1) * pageSize, data.length);
@@ -99,6 +109,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => editProductOnClick(row.id)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

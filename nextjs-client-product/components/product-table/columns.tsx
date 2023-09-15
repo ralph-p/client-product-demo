@@ -4,6 +4,7 @@ import { ProductDTO } from "@/lib/DTO/product"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "../ui/button"
+import { CellAction } from "./cell-actions"
 
 
 export const columns: ColumnDef<ProductDTO>[] = [
@@ -29,4 +30,8 @@ export const columns: ColumnDef<ProductDTO>[] = [
     accessorKey: "price",
     header: "Product Price",
   },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />
+  }
 ]
