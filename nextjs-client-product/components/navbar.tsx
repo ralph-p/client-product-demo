@@ -31,13 +31,18 @@ export const Navbar = () => {
       active: pathname === `/${selectedCustomer?.id}/products`,
     },
   ];
+  const onCustomerSelect = (id: string) => {
+    if(router){
+      router.push(`/${id}`)
+    }
+  }
   return (
     <aside className="z-30 ml-2 h-full w-full shrink-0 sticky block bg-white">
       <div className="flex flex-col p-5 space-y-2">
         <CustomerSelect
           customerList={customerList}
           selectedCustomer={selectedCustomer}
-          onCustomerSelect={(id: string) => router.push(`/${id}`)}
+          onCustomerSelect={onCustomerSelect}
         />
         <div className="flex flex-col py-5 space-y-3">
           {

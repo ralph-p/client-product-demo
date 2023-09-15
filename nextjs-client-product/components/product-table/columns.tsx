@@ -21,6 +21,7 @@ export const columns: ColumnDef<ProductDTO>[] = [
         </Button>
       )
     },
+    cell: ({row}) => <span className=" text-blue-600">{row.original.id}</span>
   },
   {
     accessorKey: "name",
