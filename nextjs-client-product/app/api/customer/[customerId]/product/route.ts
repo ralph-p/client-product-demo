@@ -5,7 +5,6 @@ export async function GET(req: Request, { params }: { params: { customerId: stri
     try {
         const { customerId } = params
         const { data: products } = await supabase.from("products").select("*").eq("customerId", customerId)
-        // const products = productList.filter((product) => product.customerID === customerId) || []
         if (products) return NextResponse.json(products)
         else return new NextResponse("Products Not Found", { status: 404 })
     } catch (error) {

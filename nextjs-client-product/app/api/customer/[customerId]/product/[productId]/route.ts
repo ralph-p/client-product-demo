@@ -1,4 +1,3 @@
-import { productList } from "@/lib/constants/products";
 import { supabase } from "@/lib/utils";
 import { NextResponse } from "next/server"
 
