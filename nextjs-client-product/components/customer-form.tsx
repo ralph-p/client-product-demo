@@ -45,41 +45,42 @@ export const CustomerForm: React.FC<CustomerFormProps> = ({ customer }) => {
       })
     })
   }
-  return (<Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-      <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Customer Name</FormLabel>
-            <FormControl>
-              <Input placeholder="Bob Smith" {...field} />
-            </FormControl>
-            <FormDescription>
-              This is the customers name.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="description"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Customer Details</FormLabel>
-            <FormControl>
-              <Textarea placeholder="Bob Smith" {...field} />
-            </FormControl>
-            <FormDescription>
-              Add any extra details about the customer here, preferred products, shipping methods, etc.
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button type="submit">Update Customer</Button>
-    </form>
-  </Form>)
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Customer Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Bob Smith" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is the customers name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Customer Details</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Bob Smith" {...field} />
+              </FormControl>
+              <FormDescription>
+                Add any extra details about the customer here, preferred products, shipping methods, etc.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Update Customer</Button>
+      </form>
+    </Form>)
 }

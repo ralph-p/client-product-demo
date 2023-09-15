@@ -48,7 +48,6 @@ export const Navbar = () => {
               >
                 {route.label}
               </Link>
-
             ))
           }
         </div>

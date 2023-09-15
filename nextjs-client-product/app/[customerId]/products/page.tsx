@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import useSWR from 'swr'
 import { productListFetcher } from '@/lib/fetcher/product-fetcher'
 import { Heading } from '@/components/ui/heading'
@@ -13,7 +13,6 @@ import { ProductDTO } from '@/lib/DTO/product'
 
 const ProductsPage = () => {
   const params = useParams()
-  const router = useRouter()
   const { data: productList, error, isLoading, mutate } = useSWR(`/api/customer/${params.customerId}/product`, productListFetcher)
   const [productModalOpen, setProductModalOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<ProductDTO | null>(null)
@@ -27,6 +26,7 @@ const ProductsPage = () => {
     setSelectedProduct(null)
     setProductModalOpen(true)
   }
+  // when closing the modal set the current selected product to null and close the modal, we also want to refetch the data incase we updated anything.
   const closeModal = () => {
     setSelectedProduct(null)
     setProductModalOpen(false)
