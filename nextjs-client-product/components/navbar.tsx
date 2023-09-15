@@ -4,11 +4,11 @@ import Link from "next/link"
 import { CustomerSelect } from "./customer-select"
 import { useParams, useRouter } from "next/navigation";
 import useSWR from 'swr'
-import { customerFetcher } from "@/lib/fetcher/customer-fetcher";
+import { customerListFetcher } from "@/lib/fetcher/customer-fetcher";
 export const Navbar = () => {
   const params = useParams()
   const router = useRouter();
-  const { data: customerList, error, isLoading } = useSWR('/api/customer', customerFetcher)
+  const { data: customerList, error, isLoading } = useSWR('/api/customer', customerListFetcher)
   if (isLoading) return <div>Loading</div>
   if (error) return <div>Error fetching customers</div>
   const selectedCustomer = customerList?.find((customer) => customer.id === params.customerId)
