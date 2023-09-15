@@ -6,20 +6,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { CustomerDTO } from "@/lib/DTO/customer"
 
 interface CustomerSelectProps {
-  customerName: string
+  customerList?: CustomerDTO[]
+  onCustomerSelect: (id: string) => void
+  selectedCustomer?: CustomerDTO
 }
-export const CustomerSelect: React.FC<CustomerSelectProps> = ({ customerName }) => {
+export const CustomerSelect: React.FC<CustomerSelectProps> = ({ customerList, selectedCustomer, onCustomerSelect }) => {
+  // if the customer list is blank render null
+  if (!customerList?.length) return null
+  // if there is no selected customer automatically route to the first customer in the list
+  if (!selectedCustomer) onCustomerSelect(customerList[0].id)
   return (
-    <Select onValueChange={(value) => console.log(value)}>
+    <Select onValueChange={(value) => onCustomerSelect(value)}>
       <SelectTrigger className="w-full">
-        <SelectValue placeholder="Customer" />
+        <SelectValue> {selectedCustomer?.name} </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem>
+        {
+          customerList.map((customer) => (<SelectItem key={customer.id} value={customer.id}>{customer.name}</SelectItem>))
+        }
       </SelectContent>
     </Select>
 
