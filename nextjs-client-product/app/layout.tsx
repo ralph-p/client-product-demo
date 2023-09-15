@@ -3,6 +3,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from "@/components/ui/toaster"
+import { Analytics } from '@vercel/analytics/react';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -21,6 +23,7 @@ export default function RootLayout({
         <div className='grid grid-cols-[220px_minmax(0,1fr)] gap-6 bg-slate-50 min-h-screen'>
           <Navbar />
           {children}
+          <Analytics />
         </div>
         <Toaster />
       </body>
