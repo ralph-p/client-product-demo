@@ -18,7 +18,6 @@ The clients in the Navbar select are automatically populated on render, once the
 
 Possible Improvements:
 
-- Update operation on the products/client page sometimes needs a page refresh to reflect the front end
 - Add some kind of state control (context, redux, recoil, etc) to store the client/product info in state and make switching between pages faster.
 - Add reusable hooks to fetch/set data so they can be used in new features 
   - Use the hooks and state to re-fetch the products on delete. 
