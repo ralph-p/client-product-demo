@@ -146,7 +146,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-between pt-10">
+      <div className="flex flex-col md:flex-row md:justify-between pt-10">
         <Select onValueChange={(value) => setPageSize(parseInt(value))}>
           <SelectTrigger className="w-[200px]">
             <SelectValue> {pageSizeOption.find((option) => option.value === pageSize)?.label} </SelectValue>
@@ -157,7 +157,7 @@ export function DataTable<TData, TValue>({
             }
           </SelectContent>
         </Select>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center md:justify-end space-x-2 py-4">
           <span>{`${startIndex} - ${endIndex} of ${data.length}`}</span>
           <Button
             variant="outline"

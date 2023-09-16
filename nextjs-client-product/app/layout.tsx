@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className='grid grid-cols-[220px_minmax(0,1fr)] gap-6 bg-slate-50 min-h-screen'>
+        <div className='flex flex-col md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-16 bg-slate-50 min-h-screen'>
           <Navbar />
           {children}
           <Analytics />
