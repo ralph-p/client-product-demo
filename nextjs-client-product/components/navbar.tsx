@@ -44,7 +44,7 @@ export const Navbar = () => {
           selectedCustomer={selectedCustomer}
           onCustomerSelect={onCustomerSelect}
         />
-        <div className="flex space-x-3 text-sm md:flex-col md:py-5 md:space-y-3">
+        <div className="flex gap-2 text-sm md:flex-col md:py-5">
           {
             routes.map((route) => (
               <Link

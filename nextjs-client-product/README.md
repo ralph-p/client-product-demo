@@ -19,7 +19,11 @@ The clients in the Navbar select are automatically populated on render, once the
 Possible Improvements:
 
 - Update operation on the products/client page sometimes needs a page refresh to reflect the front end
-- Add some kind of state control (context, redux, recoil, etc) to store the client/product info in state and make page rendering faster.
+- Add some kind of state control (context, redux, recoil, etc) to store the client/product info in state and make switching between pages faster.
+- Add reusable hooks to fetch/set data so they can be used in new features 
+  - Use the hooks and state to re-fetch the products on delete. 
 - Add better pagination logic to the products table (currently it's front end only pagination, this can be updated to use the endpoints)
-- Add/Implement auth so the clients/products need a user logged in to interact with
+- Add/Implement auth so the clients/products need a user logged to be viewed/updated.
 - Implement Prefetch/SSR for the pages so it loads faster
+- Add a loading page instead of a spinner
+- Clean up the DataTable component, split the controls into it's own component
