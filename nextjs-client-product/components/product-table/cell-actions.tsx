@@ -12,13 +12,14 @@ import {
 import axios from "axios";
 interface CellActionProps {
   data: ProductDTO
+  callback?: () => Promise<unknown>
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({ data, callback }) => {
   const params = useParams();
   const onDelete = async (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation()
-    await axios.delete(`/api/customer/${params.customerId}/product/${data.id}`)
+    await axios.delete(`/api/customer/${params.customerId}/product/${data.id}`).then(() => callback && callback())
   }
   return (
     <DropdownMenu>

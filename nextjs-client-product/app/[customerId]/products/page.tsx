@@ -40,7 +40,7 @@ const ProductsPage = () => {
         <Heading title={`Products (${productList.length})`} />
         <Button onClick={addProduct}>Add Product</Button>
       </div>
-      <DataTable data={productList} columns={columns} editProduct={onEditClick} />
+      <DataTable data={productList} columns={columns} editProduct={onEditClick} fetchProducts={mutate}/>
     </div>
   )
 }

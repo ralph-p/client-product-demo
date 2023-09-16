@@ -33,16 +33,19 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { ProductDTO } from "@/lib/DTO/product"
+import { CellAction } from "./cell-actions"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   editProduct: (product: ProductDTO) => void
+  fetchProducts: () => Promise<unknown>
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   editProduct,
+  fetchProducts
 }: DataTableProps<TData, TValue>) {
   const [pageIndex, setPageIndex] = useState(0)
   const [sorting, setSorting] = useState<SortingState>([])
@@ -129,11 +132,15 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => editProductOnClick(row.id)}
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().map((cell) => {
+                    if(cell.id.includes("actions")) {
+                      return (<TableCell key={cell.id}><CellAction  callback={fetchProducts} data={cell.row.original as ProductDTO}/></TableCell>)
+                    }
+                    return (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
-                  ))}
+                  )})}
                 </TableRow>
               ))
             ) : (
