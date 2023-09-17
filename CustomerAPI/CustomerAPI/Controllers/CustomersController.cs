@@ -9,17 +9,15 @@ using CustomerAPI.Models;
 
 namespace CustomerAPI.Controllers
 {
-    [Route("api/customers")]
+    [Route("api/customer")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerContext _context;
-        private readonly ProductContext _productContext;
+        private readonly ConsumerAPIContext _context;
 
-        public CustomersController(CustomerContext context, ProductContext productContext)
+        public CustomersController(ConsumerAPIContext context)
         {
             _context = context;
-            _productContext = productContext;   
         }
 
         // GET: api/Customers
@@ -50,6 +48,26 @@ namespace CustomerAPI.Controllers
 
             return customer;
         }
+
+        [HttpGet("{id}/products")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsForCustomer(long id)
+        {
+            // Retrieve the customer by id
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound("Customer not found.");
+            }
+
+            // Retrieve the products associated with the customer
+            var products = _context.Products
+                .Where(p => p.CustomerId == id)
+                .ToList();
+
+            return products;
+        }
+
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -89,7 +107,7 @@ namespace CustomerAPI.Controllers
         {
           if (_context.Customers == null)
           {
-              return Problem("Entity set 'CustomerContext.Customers'  is null.");
+              return Problem("Entity set 'ConsumerAPIContext.Customers'  is null.");
           }
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();

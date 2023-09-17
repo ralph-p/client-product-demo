@@ -13,9 +13,9 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductContext _context;
+        private readonly ConsumerAPIContext _context;
 
-        public ProductsController(ProductContext context)
+        public ProductsController(ConsumerAPIContext context)
         {
             _context = context;
         }
@@ -85,11 +85,26 @@ namespace CustomerAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-          if (_context.Products == null)
-          {
-              return Problem("Entity set 'ProductContext.Products'  is null.");
-          }
-            _context.Products.Add(product);
+            if (_context.Products == null)
+            {
+                return NotFound();
+            }
+
+            // Find the customer by their ID
+            var customer = await _context.Customers.FindAsync(product.CustomerId);
+
+            if (customer == null)
+            {
+                return NotFound("Customer not found.");
+            }
+
+            // Associate the product with the customer
+            customer.Products.Add(product);
+
+
+             _context.Products.Add(product);
+
+            // Save changes to the database
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);

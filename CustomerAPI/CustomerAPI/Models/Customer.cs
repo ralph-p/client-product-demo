@@ -1,4 +1,6 @@
-﻿namespace CustomerAPI.Models
+﻿using System.Text.Json.Serialization;
+
+namespace CustomerAPI.Models
 {
     public class Customer
     {
@@ -6,6 +8,7 @@
         public required string Name { get; set; }
         public string Description { get; set; } = "";
 
-        public virtual ICollection<Product>? Products { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Product> Products { get; } = new List<Product>();
     }
 }
